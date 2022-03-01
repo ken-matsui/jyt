@@ -107,8 +107,8 @@ enabled = true
 
 ### YAML -> JSON
 
-```json
-$ cat ./examples/example.yaml | jyt y2j      
+```bash
+$ cat ./examples/example.yaml | jyt y2j
 {
   "title": "TOML Example",
   "owner": {
@@ -130,7 +130,7 @@ $ cat ./examples/example.yaml | jyt y2j
 ### YAML -> TOML
 
 ```bash
-$ cat ./examples/example.yaml | jyt yt 
+$ cat ./examples/example.yaml | jyt yt
 title = "TOML Example"
 
 [owner]
@@ -145,7 +145,7 @@ enabled = true
 
 ### TOML -> JSON
 
-```json
+```bash
 $ cat ./examples/example.toml | jyt tj
 {
   "title": "TOML Example",
