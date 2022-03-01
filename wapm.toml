@@ -1,0 +1,20 @@
+[package]
+name = "ken-matsui/jyt"
+version = "0.1.0"
+description = "A tridirectional converter between Json, Yaml, and Toml"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ken-matsui/jyt"
+homepage = "https://github.com/ken-matsui/jyt#readme"
+
+[[module]]
+name = "jyt"
+source = "target/wasm32-wasi/release/jyt.wasm"
+abi = "wasi"
+
+[module.interfaces]
+wasi = "0.1.0-unstable"
+
+[[command]]
+name = "jyt"
+module = "jyt"

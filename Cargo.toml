@@ -1,0 +1,29 @@
+[package]
+name = "jyt"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ken Matsui <26405363+ken-matsui@users.noreply.github.com>"]
+description = "A tridirectional converter between Json, Yaml, and Toml"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ken-matsui/jyt/"
+homepage = "https://github.com/ken-matsui/jyt#readme"
+documentation = "https://docs.rs/jyt"
+
+[dependencies]
+clap = { version = "3.1.2", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+serde_yaml = "0.8"
+toml = { version = "0.5", features = ["preserve_order"] }
+thiserror = "1.0"
+
+[dev-dependencies]
+inline-c = "0.1"
+paste = "1.0"
+
+[build-dependencies]
+cbindgen = "0.20"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
