@@ -1,6 +1,6 @@
 # jyt [![crates.io version](https://img.shields.io/crates/v/jyt.svg)](https://crates.io/crates/jyt) [![crates.io downloads](https://img.shields.io/crates/d/jyt.svg)](https://crates.io/crates/jyt)
 
-A tridirectional converter between Json, Yaml, and Toml which supports both native and WebAssembly
+A tridirectional converter between **J**son, **Y**aml, and **T**oml which supports both native and WebAssembly
 
 ## Installation
 
@@ -20,6 +20,17 @@ $ wapm install ken-matsui/jyt
 ```
 
 ## Usage
+
+```mermaid
+%%{init: {"flowchart" : { "curve" : "linear" } } }%%
+graph LR;
+  JSON --> |$ jyt jy|YAML
+  JSON --> |$ jyt jt|TOML
+  YAML --> |$ jyt yt|TOML
+  YAML --> |$ jyt yj|JSON
+  TOML --> |$ jyt ty|YAML
+  TOML --> |$ jyt tj|JSON
+```
 
 ```bash
 $ jyt --help
