@@ -1,6 +1,6 @@
 [package]
 name = "jyt"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Ken Matsui <26405363+ken-matsui@users.noreply.github.com>"]
 description = "A tridirectional converter between Json, Yaml, and Toml"
