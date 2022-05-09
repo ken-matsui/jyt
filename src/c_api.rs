@@ -1,46 +1,59 @@
 use crate::ext;
 
 use std::ffi::{CStr, CString};
-use std::mem;
 use std::os::raw::c_char;
 
 /// # Safety
 ///
-/// This public function might dereference a raw pointer.
+/// The returned char pointer should be freed by the `cstring_free` function.
+/// For detailed usage in any language, please see:
+/// https://jakegoulding.com/rust-ffi-omnibus/string_return/
 #[no_mangle]
-pub unsafe extern "C" fn to_json(from: ext::Ext, text: *const c_char) -> *const c_char {
-    let text_c_str = CStr::from_ptr(text);
-    let value = ext::deserialize::<ext::json::Value>(from, text_c_str.to_str().unwrap());
-    let output = CString::new(ext::json::serialize(&value.unwrap()).unwrap()).unwrap();
-    let ptr = output.as_ptr();
-    mem::forget(output);
-    ptr
+pub unsafe extern "C" fn to_json(from: ext::Ext, input: *const c_char) -> *mut c_char {
+    let input = CStr::from_ptr(input);
+    let deserialized = ext::deserialize::<ext::json::Value>(from, input.to_str().unwrap());
+    let serialized = CString::new(ext::json::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    serialized.into_raw()
 }
 
 /// # Safety
 ///
-/// This public function might dereference a raw pointer.
+/// The returned char pointer should be freed by the `cstring_free` function.
+/// For detailed usage in any language, please see:
+/// https://jakegoulding.com/rust-ffi-omnibus/string_return/
 #[no_mangle]
-pub unsafe extern "C" fn to_yaml(from: ext::Ext, text: *const c_char) -> *const c_char {
-    let text_c_str = CStr::from_ptr(text);
-    let value = ext::deserialize::<ext::yaml::Value>(from, text_c_str.to_str().unwrap());
-    let output = CString::new(ext::yaml::serialize(&value.unwrap()).unwrap()).unwrap();
-    let ptr = output.as_ptr();
-    mem::forget(output);
-    ptr
+pub unsafe extern "C" fn to_yaml(from: ext::Ext, input: *const c_char) -> *mut c_char {
+    let input = CStr::from_ptr(input);
+    let deserialized = ext::deserialize::<ext::yaml::Value>(from, input.to_str().unwrap());
+    let serialized = CString::new(ext::yaml::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    serialized.into_raw()
 }
 
 /// # Safety
 ///
-/// This public function might dereference a raw pointer.
+/// The returned char pointer should be freed by the `cstring_free` function.
+/// For detailed usage in any language, please see:
+/// https://jakegoulding.com/rust-ffi-omnibus/string_return/
 #[no_mangle]
-pub unsafe extern "C" fn to_toml(from: ext::Ext, text: *const c_char) -> *const c_char {
-    let text_c_str = CStr::from_ptr(text);
-    let value = ext::deserialize::<ext::toml::Value>(from, text_c_str.to_str().unwrap());
-    let output = CString::new(ext::toml::serialize(&value.unwrap()).unwrap()).unwrap();
-    let ptr = output.as_ptr();
-    mem::forget(output);
-    ptr
+pub unsafe extern "C" fn to_toml(from: ext::Ext, input: *const c_char) -> *mut c_char {
+    let input = CStr::from_ptr(input);
+    let deserialized = ext::deserialize::<ext::toml::Value>(from, input.to_str().unwrap());
+    let serialized = CString::new(ext::toml::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    serialized.into_raw()
+}
+
+/// # Safety
+///
+/// This function is for freeing a pointer of the argument.
+/// The pointer should be allocated with `CString` in the Rust world.
+#[no_mangle]
+pub unsafe extern "C" fn cstring_free(s: *mut c_char) {
+    if s.is_null() {
+        return;
+    }
+
+    // retake pointer to free memory
+    let _ = CString::from_raw(s);
 }
 
 #[cfg(test)]
@@ -115,9 +128,9 @@ enabled = true
                     "    \"enabled\": true\n"
                     "  }\n"
                     "}";
-                const char* output = to_yaml(Json, input);
+                char* output = to_yaml(Json, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
@@ -149,9 +162,9 @@ enabled = true
                     "    \"enabled\": true\n"
                     "  }\n"
                     "}";
-                const char* output = to_toml(Json, input);
+                char* output = to_toml(Json, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
@@ -180,9 +193,9 @@ enabled = true
                     "    - 8002\n"
                     "  connection_max: 5000\n"
                     "  enabled: true\n";
-                const char* output = to_json(Yaml, input);
+                char* output = to_json(Yaml, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
@@ -210,9 +223,9 @@ enabled = true
                     "    - 8002\n"
                     "  connection_max: 5000\n"
                     "  enabled: true\n";
-                const char* output = to_toml(Yaml, input);
+                char* output = to_toml(Yaml, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
@@ -239,9 +252,9 @@ enabled = true
                     "ports = [8000, 8001, 8002]\n"
                     "connection_max = 5000\n"
                     "enabled = true\n";
-                const char* output = to_json(Toml, input);
+                char* output = to_json(Toml, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
@@ -267,9 +280,9 @@ enabled = true
                     "ports = [8000, 8001, 8002]\n"
                     "connection_max = 5000\n"
                     "enabled = true\n";
-                const char* output = to_yaml(Toml, input);
+                char* output = to_yaml(Toml, input);
                 printf("%s", output);
-                free((char*)output);
+                cstring_free(output);
                 return 0;
             }
         })
