@@ -272,6 +272,7 @@ $ cargo publish
 #### [wapm.io](https://wapm.io/)
 
 ```bash
+$ rustup target add wasm32-wasi
 $ cargo build --release --target wasm32-wasi
 $ wapm publish
 ```
