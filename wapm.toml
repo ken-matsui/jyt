@@ -1,6 +1,6 @@
 [package]
 name = "ken-matsui/jyt"
-version = "0.1.2"
+version = "0.1.3"
 description = "A tridirectional converter between Json, Yaml, and Toml"
 license = "MIT"
 readme = "README.md"

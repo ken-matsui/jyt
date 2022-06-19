@@ -35,7 +35,6 @@ graph LR;
 ```bash
 $ jyt --help
 jyt 0.1.0
-Ken Matsui <26405363+ken-matsui@users.noreply.github.com>
 A tridirectional converter between Json, Yaml, and Toml
 
 USAGE:
@@ -60,7 +59,6 @@ SUBCOMMANDS:
 ```bash
 $ wapm run jyt -- --help
 jyt 0.1.0
-Ken Matsui <26405363+ken-matsui@users.noreply.github.com>
 A tridirectional converter between Json, Yaml, and Toml
 
 USAGE:

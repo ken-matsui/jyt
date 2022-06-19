@@ -4,7 +4,7 @@ use std::io;
 use std::io::BufRead;
 
 #[derive(Parser)]
-#[clap(author, version, about, long_about = None)]
+#[clap(version, about, long_about = None)]
 #[clap(propagate_version = true)]
 struct Cli {
     #[clap(subcommand)]
