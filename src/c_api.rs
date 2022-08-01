@@ -77,16 +77,15 @@ pub(crate) mod tests {
   }
 }"#;
 
-    pub(crate) static YAML: &str = r#"---
-title: TOML Example
+    pub(crate) static YAML: &str = r#"title: TOML Example
 owner:
   name: Tom Preston-Werner
 database:
   server: 192.168.1.1
   ports:
-    - 8000
-    - 8001
-    - 8002
+  - 8000
+  - 8001
+  - 8002
   connection_max: 5000
   enabled: true
 "#;
@@ -181,16 +180,15 @@ enabled = true
 
             int main() {
                 const char* input =
-                    "---\n"
                     "title: TOML Example\n"
                     "owner:\n"
                     "  name: Tom Preston-Werner\n"
                     "database:\n"
                     "  server: 192.168.1.1\n"
                     "  ports:\n"
-                    "    - 8000\n"
-                    "    - 8001\n"
-                    "    - 8002\n"
+                    "  - 8000\n"
+                    "  - 8001\n"
+                    "  - 8002\n"
                     "  connection_max: 5000\n"
                     "  enabled: true\n";
                 char* output = to_json(Yaml, input);
@@ -211,16 +209,15 @@ enabled = true
 
             int main() {
                 const char* input =
-                    "---\n"
                     "title: TOML Example\n"
                     "owner:\n"
                     "  name: Tom Preston-Werner\n"
                     "database:\n"
                     "  server: 192.168.1.1\n"
                     "  ports:\n"
-                    "    - 8000\n"
-                    "    - 8001\n"
-                    "    - 8002\n"
+                    "  - 8000\n"
+                    "  - 8001\n"
+                    "  - 8002\n"
                     "  connection_max: 5000\n"
                     "  enabled: true\n";
                 char* output = to_toml(Yaml, input);
