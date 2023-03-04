@@ -15,4 +15,4 @@ updates:
       interval: "monthly"
     ignore:
       - dependency-name: "clap"
-        versions: ["4.1.x"]
+        versions: ["4.0.x", "4.1.x"]
