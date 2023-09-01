@@ -61,9 +61,9 @@ dependencies = [
 
 [[package]]
 name = "cbindgen"
-version = "0.24.6"
+version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "987cbf881b3fbac73b144b05c73a282638f656070c185bec27173154722a027e"
+checksum = "faeaa693e5a727975a79211b8f35c0cb09b031fdb6eaa4a788bc6713d01488ca"
 dependencies = [
  "clap 3.2.22",
  "heck",
