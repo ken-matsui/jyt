@@ -16,3 +16,8 @@ updates:
     ignore:
       - dependency-name: "clap"
         versions: ["4.0.x", "4.1.x"]
+    groups:
+      cargo:
+        update-types:
+        - "minor"
+        - "patch"
