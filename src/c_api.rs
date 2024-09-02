@@ -12,7 +12,7 @@ use std::os::raw::c_char;
 pub unsafe extern "C" fn to_json(from: ext::Ext, input: *const c_char) -> *mut c_char {
     let input = CStr::from_ptr(input);
     let deserialized = ext::deserialize::<ext::json::Value>(from, input.to_str().unwrap());
-    let serialized = CString::new(ext::json::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    let serialized = CString::new(ext::json::serialize(deserialized.unwrap()).unwrap()).unwrap();
     serialized.into_raw()
 }
 
@@ -25,7 +25,7 @@ pub unsafe extern "C" fn to_json(from: ext::Ext, input: *const c_char) -> *mut c
 pub unsafe extern "C" fn to_yaml(from: ext::Ext, input: *const c_char) -> *mut c_char {
     let input = CStr::from_ptr(input);
     let deserialized = ext::deserialize::<ext::yaml::Value>(from, input.to_str().unwrap());
-    let serialized = CString::new(ext::yaml::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    let serialized = CString::new(ext::yaml::serialize(deserialized.unwrap()).unwrap()).unwrap();
     serialized.into_raw()
 }
 
@@ -38,7 +38,7 @@ pub unsafe extern "C" fn to_yaml(from: ext::Ext, input: *const c_char) -> *mut c
 pub unsafe extern "C" fn to_toml(from: ext::Ext, input: *const c_char) -> *mut c_char {
     let input = CStr::from_ptr(input);
     let deserialized = ext::deserialize::<ext::toml::Value>(from, input.to_str().unwrap());
-    let serialized = CString::new(ext::toml::serialize(&deserialized.unwrap()).unwrap()).unwrap();
+    let serialized = CString::new(ext::toml::serialize(deserialized.unwrap()).unwrap()).unwrap();
     serialized.into_raw()
 }
 
