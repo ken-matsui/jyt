@@ -1,9 +1,7 @@
 pub mod error;
 
-mod c_api;
 mod ext;
 
-pub use c_api::*;
 pub use ext::Ext;
 
 pub trait Converter {
@@ -30,8 +28,49 @@ impl Converter for String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use c_api::tests::{JSON, TOML, YAML};
     use paste::paste;
+
+    static JSON: &str = r#"{
+  "title": "TOML Example",
+  "owner": {
+    "name": "Tom Preston-Werner"
+  },
+  "database": {
+    "server": "192.168.1.1",
+    "ports": [
+      8000,
+      8001,
+      8002
+    ],
+    "connection_max": 5000,
+    "enabled": true
+  }
+}"#;
+
+    static YAML: &str = r#"title: TOML Example
+owner:
+  name: Tom Preston-Werner
+database:
+  server: 192.168.1.1
+  ports:
+  - 8000
+  - 8001
+  - 8002
+  connection_max: 5000
+  enabled: true
+"#;
+
+    static TOML: &str = r#"title = "TOML Example"
+
+[owner]
+name = "Tom Preston-Werner"
+
+[database]
+server = "192.168.1.1"
+ports = [8000, 8001, 8002]
+connection_max = 5000
+enabled = true
+"#;
 
     macro_rules! test_convert {
         ($from:ident, $to:ident) => {
