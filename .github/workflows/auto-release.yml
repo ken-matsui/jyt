@@ -19,10 +19,12 @@ jobs:
       - name: Build for x86_64-unknown-linux-musl
         run: cargo build --release --target x86_64-unknown-linux-musl
 
+      - run: mv target/x86_64-unknown-linux-musl/release/jyt jyt_${{ github.ref_name }}_x86_64-unknown-linux-musl
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/x86_64-unknown-linux-musl/release/jyt
+          files: jyt_${{ github.ref_name }}_x86_64-unknown-linux-musl
           generate_release_notes: true
           draft: false
         env:
