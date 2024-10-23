@@ -11,9 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          target: x86_64-unknown-linux-musl
+  
+      - name: Build for x86_64-unknown-linux-musl
+        run: cargo build --release --target x86_64-unknown-linux-musl
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          files: target/x86_64-unknown-linux-musl/release/jyt
           generate_release_notes: true
           draft: false
         env:
