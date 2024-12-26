@@ -6,7 +6,6 @@ pub(crate) mod yaml;
 
 use crate::error;
 
-#[repr(C)]
 pub enum Ext {
     Json,
     Yaml,
