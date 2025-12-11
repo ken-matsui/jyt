@@ -52,7 +52,12 @@ fn input_from_stdin() -> String {
 
 fn extract_input(input: &Option<String>) -> String {
     if let Some(input) = input {
-        input.clone()
+        let path = std::path::Path::new(input);
+        if path.exists() {
+            std::fs::read_to_string(input).unwrap()
+        } else {
+            input.clone()
+        }
     } else {
         input_from_stdin()
     }
