@@ -166,6 +166,38 @@ $ echo $?
 0
 ```
 
+### Various Input Methods
+
+#### Input from `stdin`
+
+Typing at the terminal (terminate with Ctrl-D)
+
+```bash
+$ jyt jy
+```
+
+#### Input from file
+
+```bash
+$ cat file | jyt jy
+$ jyt jy < file
+$ jyt jy file
+```
+
+#### Input on commandline
+
+```bash
+$ jyt jy '{"name": "John", "age": 23}'
+```
+
+### Output
+
+Output always goes to `stdout`, and can be routed to a file like:
+
+```bash
+$ jyt jy inputfile > file
+```
+
 ## Contribution
 
 ### Build
